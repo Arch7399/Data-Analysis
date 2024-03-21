@@ -150,18 +150,17 @@ def send_email_alert(currencies, recipient_emails):
     subject = "Cryptocurrency Alert"
     body = f"{', '.join(currencies)} are performing well."
 
-    html_content = (
-        """
-            <html>
+    html_content = """
+        <html>
         <head>
         <title>Cryptocurrency Alert</title>
-        /* Styling for mail */
         <style>
+        /* Responsive styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff;  
+            background-color: #f0f8ff;  /* Light blue background */
         }
 
         .container {
@@ -179,7 +178,7 @@ def send_email_alert(currencies, recipient_emails):
         p {
             margin: 0;
             padding: 5px;
-            color: #666;  
+            color: #666;  /* Slightly darker text for better contrast */
         }
 
         ul {
@@ -192,7 +191,7 @@ def send_email_alert(currencies, recipient_emails):
             display: inline-block;
             margin: 0 10px 10px 0;
             padding: 5px 10px;
-            background-color: #e0ebef;  
+            background-color: #e0ebef;  /* Lighter blue for list items */
             border-radius: 5px;
         }
 
@@ -211,15 +210,17 @@ def send_email_alert(currencies, recipient_emails):
         <h1>Cryptocurrency Alert</h1>
         <p>The following currencies are performing well:</p>
         <ul>
-            <li>"""
-        + ", ".join(currencies)
-        + """</li>
+         """
+    for currency in currencies:
+        url = f"https://coinmarketcap.com/currencies/{currency}/"
+        html_content += f'<li><a href="{url}">{currency}</a></li>\n'
+
+    html_content += """   
         </ul>
         </div>
         </body>
         </html>
         """
-    )
 
     # Create message
     message = MIMEMultipart()
