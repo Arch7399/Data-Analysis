@@ -18,7 +18,7 @@ def api_runner():
     parameters = {"start": "1", "limit": "1000", "convert": "USD"}
     headers = {
         "Accepts": "application/json",
-        "X-CMC_PRO_API_KEY": "your API key",
+        "X-CMC_PRO_API_KEY": "your coinmarketcap API key",
     }
 
     session = Session()
@@ -212,7 +212,8 @@ def send_email_alert(currencies, recipient_emails):
         <ul>
          """
     for currency in currencies:
-        url = f"https://coinmarketcap.com/currencies/{currency}/"
+        currency_url = currency.replace(" ", "-")
+        url = f"https://coinmarketcap.com/currencies/{currency_url}/"
         html_content += f'<li><a href="{url}">{currency}</a></li>\n'
 
     html_content += """   
